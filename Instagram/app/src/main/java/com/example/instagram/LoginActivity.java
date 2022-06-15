@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 goMainActivity();
+                finish();
             }
         });
     }

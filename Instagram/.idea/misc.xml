@@ -7,8 +7,12 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ufi_heart_icon.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ufi_save_icon.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_feed.xml" value="0.22010869565217392" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.21489105224609378" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_post_details.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/item_post.xml" value="0.22010869565217392" />
+        <entry key="app/src/main/res/menu/menu_main.xml" value="0.18645833333333334" />
         <entry key="app/src/main/res/xml/fileprovider.xml" value="0.22010869565217392" />
       </map>
     </option>

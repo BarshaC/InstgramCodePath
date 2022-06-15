@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
+    private Button btnHome;
     private File photoFile;
     public String photoFileName = "photo.jpg";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 30;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnLogout = findViewById(R.id.btnLogout);
+        btnHome = findViewById(R.id.btnHome);
         etDescription = findViewById(R.id.etDescription);
         ivPostImage = findViewById(R.id.ivPostImage);
         btnSubmit = findViewById(R.id.btnSubmit);
@@ -68,6 +70,18 @@ public class MainActivity extends AppCompatActivity {
                 goLoginActivity();
             }
         });
+
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick home button");
+                ParseUser.logOut();
+                //ParseUser currentUser = ParseUser.getCurrentUser();
+                Toast.makeText(MainActivity.this, "this is homepage", Toast.LENGTH_SHORT).show();
+                goFeedActivity();
+            }
+        });
+
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,6 +180,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void goFeedActivity() {
+        Intent i = new Intent(MainActivity.this, FeedActivity.class);
+        startActivity(i);
+        finish();
     }
 
 }
