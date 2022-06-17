@@ -2,10 +2,12 @@ package com.example.instagram;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +15,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.parse.Parse;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -54,6 +59,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvDescription;
         private TextView tvTime;
         private ImageView displayPicture;
+        private ImageButton ibLike;
+        private ImageButton ibComment;
+        private List<String> likedBy;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,6 +70,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTime = itemView.findViewById(R.id.tvTime);
             displayPicture = itemView.findViewById(R.id.profilePicture);
+            ibLike = itemView.findViewById(R.id.ibLike);
+            ibComment = itemView.findViewById(R.id.ibComment);
 
         }
 
@@ -72,7 +82,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvTime.setText(post.getCreatedAt().toString());
             ParseFile profilePicture = post.getUser().getProfileImage();
             if (profilePicture != null) {
-                Glide.with(context).load(profilePicture.getUrl()).into(displayPicture);
+                Glide.with(context).load(profilePicture.getUrl())
+                        .circleCrop()
+                        .into(displayPicture);
+
             }
             ParseFile image = post.getImage();
             if (image != null) {
@@ -86,6 +99,28 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     Intent i = new Intent(context,PostDetailsActivity.class);
                     i.putExtra("details", Parcels.wrap(post));
                     context.startActivity(i);
+                }
+            });
+            ibLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    likedBy = post.getLikedBy();
+                    if (likedBy.contains(ParseUser.getCurrentUser().getObjectId())){
+                        likedBy.remove(ParseUser.getCurrentUser().getObjectId());
+                        post.setKeyLikedBy(likedBy);
+                        ibLike.setColorFilter(Color.BLACK);
+                    }
+                    else {
+                        likedBy.add(ParseUser.getCurrentUser().getObjectId());
+                        post.setKeyLikedBy(likedBy);
+                        ibLike.setColorFilter(Color.RED);
+                    }
+                    post.saveInBackground();
+                }
+            });
+            ibComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                 }
             });
         }
