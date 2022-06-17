@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.instagram.Post;
 import com.example.instagram.R;
+import com.example.instagram.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -125,7 +126,7 @@ public class ComposeFragment extends Fragment {
         Post post = new Post();
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
-        post.setUser(currentUser);
+        post.setUser((User) currentUser);
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
