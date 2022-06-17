@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.instagram.EndlessRecyclerViewScrollListener;
 import com.example.instagram.Post;
 import com.example.instagram.PostsAdapter;
 import com.example.instagram.R;
@@ -24,11 +25,6 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PostsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class PostsFragment extends Fragment {
 
     private RecyclerView rvPosts;
@@ -36,43 +32,12 @@ public class PostsFragment extends Fragment {
     protected List <Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
     private static final String TAG = "PostsFragment";
-
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    EndlessRecyclerViewScrollListener scrollListener;
 
     public PostsFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PostsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PostsFragment newInstance(String param1, String param2) {
-        PostsFragment fragment = new PostsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -85,26 +50,36 @@ public class PostsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //setContentView(R.layout.fragment_posts);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-        // Setup refresh listener which triggers new data loading
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                queryPosts();
+                queryPosts(0);
             }
         });
         rvPosts = view.findViewById(R.id.rvPosts);
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(getContext(),allPosts);
         rvPosts.setAdapter(adapter);
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        queryPosts();
+        rvPosts.setLayoutManager(linearLayoutManager);
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                queryPosts(allPosts.size());
+
+            }
+        };
+
+        rvPosts.addOnScrollListener(scrollListener);
+
+        queryPosts(0);
     }
-    protected void queryPosts() {
+    protected void queryPosts(int skip) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.setLimit(20);
+        query.setLimit(2);
+        query.setSkip(skip);
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Post>() {
             @Override
