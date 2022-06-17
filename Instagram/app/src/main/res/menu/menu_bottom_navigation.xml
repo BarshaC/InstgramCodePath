@@ -19,4 +19,9 @@
         android:icon="@drawable/camera_shadow_fill"
         android:title="@string/camera"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/action_btnLogout"
+        android:icon="?attr/actionModeCloseDrawable"
+        android:title="logout"
+        app:showAsAction="always" />
 </menu>
