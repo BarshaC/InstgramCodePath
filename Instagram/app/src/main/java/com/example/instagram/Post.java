@@ -55,7 +55,7 @@ public class Post extends ParseObject {
 
     public String likeCountDisplayText() {
         String likesText = String. valueOf(getLikedBy().size());
-        likesText = getLikedBy().size() == 1? " like" : " likes";
+        likesText += getLikedBy().size() == 1? " like" : " likes";
         return likesText;
     }
     public User getUser() {

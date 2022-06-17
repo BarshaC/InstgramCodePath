@@ -3,6 +3,7 @@ package com.example.instagram;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,6 +63,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageButton ibLike;
         private ImageButton ibComment;
         private List<String> likedBy;
+        private TextView tvlikesCounter;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,11 +74,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             displayPicture = itemView.findViewById(R.id.profilePicture);
             ibLike = itemView.findViewById(R.id.ibLike);
             ibComment = itemView.findViewById(R.id.ibComment);
+            tvlikesCounter = itemView.findViewById(R.id.tvlikesCounter);
 
         }
 
         public void bind(Post post) {
-            // Bind the post data to the view elements
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
             tvTime.setText(post.getCreatedAt().toString());
@@ -94,8 +96,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int position = getAdapterPosition();
-                    Post post = posts.get(position);
                     Intent i = new Intent(context,PostDetailsActivity.class);
                     i.putExtra("details", Parcels.wrap(post));
                     context.startActivity(i);
@@ -108,14 +108,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                     if (likedBy.contains(ParseUser.getCurrentUser().getObjectId())){
                         likedBy.remove(ParseUser.getCurrentUser().getObjectId());
                         post.setKeyLikedBy(likedBy);
-                        ibLike.setColorFilter(Color.BLACK);
+                        Drawable newimage = context.getDrawable(R.drawable.ic_heart);
+                        ibLike.setImageDrawable(newimage);
                     }
                     else {
                         likedBy.add(ParseUser.getCurrentUser().getObjectId());
                         post.setKeyLikedBy(likedBy);
-                        ibLike.setColorFilter(Color.RED);
+                        Drawable newimage = context.getDrawable(R.drawable.ic_ufi_heart_active);
+                        ibLike.setImageDrawable(newimage);
                     }
                     post.saveInBackground();
+                    tvlikesCounter.setText(post.likeCountDisplayText());
                 }
             });
             ibComment.setOnClickListener(new View.OnClickListener() {
