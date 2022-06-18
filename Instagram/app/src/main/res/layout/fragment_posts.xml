@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.PostsFragment">
 
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/swipeContainer"
     android:layout_width="406dp"
@@ -19,7 +18,6 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:padding="8dp" />
-
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

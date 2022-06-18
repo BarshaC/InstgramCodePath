@@ -48,7 +48,6 @@ public class Post extends ParseObject {
         return likedBy;
     }
 
-
     public void setKeyLikedBy(List<String> abc) {
         put(KEY_LIKED_BY,abc);
     }

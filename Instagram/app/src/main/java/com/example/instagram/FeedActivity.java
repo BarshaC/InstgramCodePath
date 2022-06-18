@@ -33,22 +33,17 @@ public class FeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
-        // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
+
                 queryPosts();
             }
         });
 
         rvPosts = findViewById(R.id.rvPosts);
-        
         allPosts = new ArrayList<>();
         adapter = new PostsAdapter(this, allPosts);
-
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
         queryPosts();
@@ -68,8 +63,6 @@ public class FeedActivity extends AppCompatActivity {
                 }
                 for (Post post: posts)  {
                     Log.i(TAG, "Posts: " + post.getDescription() + ", " + post.getUser().getUsername());
-
-
                 }
                 allPosts.addAll(posts);
                 swipeContainer.setRefreshing(false);
@@ -77,6 +70,4 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
