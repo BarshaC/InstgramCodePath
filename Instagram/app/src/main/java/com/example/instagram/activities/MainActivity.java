@@ -58,16 +58,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
-                    case R.id.action_home:
+                    case R.id.actionHome:
                         fragment = new PostsFragment();
                         break;
-                    case R.id.action_compose:
+                    case R.id.actionCompose:
                         fragment = new ComposeFragment();
                         break;
-                    case R.id.action_btnLogout:
+                    case R.id.actionBtnLogout:
                         fragment = new LogoutFragment();
                         break;
-                    case R.id.action_profile:
+                    case R.id.actionProfile:
                         fragment = new ProfileFragment();
                         break;
                     default:
