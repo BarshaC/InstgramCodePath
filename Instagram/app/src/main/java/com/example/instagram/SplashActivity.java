@@ -8,11 +8,6 @@ import android.os.Handler;
 
 public class SplashActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-    }
     boolean handler = new Handler().postDelayed(new Runnable() {
         @Override
         public void run() {
@@ -20,5 +15,11 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(i);
         }
     }, 3000);
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+    }
 
 }

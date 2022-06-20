@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.example.instagram.Post;
 import com.example.instagram.R;
 import com.example.instagram.User;
@@ -36,15 +37,14 @@ import com.parse.SaveCallback;
 import java.io.File;
 
 public class ComposeFragment extends Fragment {
+    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 30;
+    private static final String TAG = "ComposeFragment";
+    public String photoFileName = "photo.jpg";
     private EditText etDescription;
     private Button btnCaptureImage;
     private ImageView ivPostImage;
     private Button btnSubmit;
     private File photoFile;
-    private static final String TAG = "ComposeFragment";
-    public String photoFileName = "photo.jpg";
-    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 30;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,12 +68,12 @@ public class ComposeFragment extends Fragment {
                     Toast.makeText(getContext(), "You must add description", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (photoFile ==null || ivPostImage.getDrawable() ==null){
+                if (photoFile == null || ivPostImage.getDrawable() == null) {
                     Toast.makeText(getContext(), "You must add image!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser,photoFile);
+                savePost(description, currentUser, photoFile);
             }
         });
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +84,7 @@ public class ComposeFragment extends Fragment {
             }
         });
     }
+
     private void launchCamera() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         photoFile = getPhotoFileUri(photoFileName);
@@ -112,7 +113,7 @@ public class ComposeFragment extends Fragment {
         File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
 
         // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
             Log.d(TAG, "failed to create directory");
         }
 

@@ -22,9 +22,10 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends PostsFragment{
+public class ProfileFragment extends PostsFragment {
     private static final String TAG = "ProfileFragment";
     private SwipeRefreshLayout swipeContainer;
+
     @Override
     protected void queryPosts(int num) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
@@ -49,6 +50,7 @@ public class ProfileFragment extends PostsFragment{
             }
         });
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

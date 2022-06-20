@@ -29,10 +29,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     private Context context;
     private List<Post> posts;
 
-    public PostsAdapter(Context context,List<Post> posts) {
+    public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
         this.posts = posts;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -95,7 +96,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context,PostDetailsActivity.class);
+                    Intent i = new Intent(context, PostDetailsActivity.class);
                     i.putExtra("details", Parcels.wrap(post));
                     context.startActivity(i);
                 }
@@ -104,13 +105,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                 @Override
                 public void onClick(View view) {
                     likedBy = post.getLikedBy();
-                    if (likedBy.contains(ParseUser.getCurrentUser().getObjectId())){
+                    if (likedBy.contains(ParseUser.getCurrentUser().getObjectId())) {
                         likedBy.remove(ParseUser.getCurrentUser().getObjectId());
                         post.setKeyLikedBy(likedBy);
                         Drawable newimage = context.getDrawable(R.drawable.ic_heart);
                         ibLike.setImageDrawable(newimage);
-                    }
-                    else {
+                    } else {
                         likedBy.add(ParseUser.getCurrentUser().getObjectId());
                         post.setKeyLikedBy(likedBy);
                         Drawable newimage = context.getDrawable(R.drawable.ic_ufi_heart_active);
@@ -132,6 +132,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             posts.clear();
             notifyDataSetChanged();
         }
+
         public void addAll(List<Post> list) {
             posts.addAll(list);
             notifyDataSetChanged();

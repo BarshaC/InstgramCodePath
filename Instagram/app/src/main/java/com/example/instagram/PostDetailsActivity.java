@@ -66,14 +66,13 @@ public class PostDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 likedBy = post.getLikedBy();
-                if (likedBy.contains(ParseUser.getCurrentUser().getObjectId())){
+                if (likedBy.contains(ParseUser.getCurrentUser().getObjectId())) {
                     likedBy.remove(ParseUser.getCurrentUser().getObjectId());
                     post.setKeyLikedBy(likedBy);
                     Log.e("PostDetails", "liked");
                     Drawable newimage = PostDetailsActivity.this.getDrawable(R.drawable.ic_heart);
                     ibLike.setImageDrawable(newimage);
-                }
-                else {
+                } else {
                     likedBy.add(ParseUser.getCurrentUser().getObjectId());
                     post.setKeyLikedBy(likedBy);
 

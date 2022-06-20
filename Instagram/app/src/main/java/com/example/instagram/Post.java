@@ -22,47 +22,7 @@ public class Post extends ParseObject {
     public static final String KEY_CREATED_KEY = "createdAt";
     public static final String KEY_LIKED_BY = "likedBy";
 
-    public Post(){}
-
-    public String getDescription() {
-        return getString(KEY_DESCRIPTION);
-    }
-
-    public void setDescription(String description) {
-        put(KEY_DESCRIPTION,description);
-    }
-
-    public ParseFile getImage() {
-        return getParseFile(KEY_IMAGE);
-    }
-
-    public void setImage(ParseFile parseFile) {
-        put(KEY_IMAGE,parseFile);
-    }
-
-    public List<String> getLikedBy() {
-        List <String> likedBy = getList(KEY_LIKED_BY);
-        if (likedBy == null ) {
-            likedBy = new ArrayList<>();
-        }
-        return likedBy;
-    }
-
-    public void setKeyLikedBy(List<String> abc) {
-        put(KEY_LIKED_BY,abc);
-    }
-
-    public String likeCountDisplayText() {
-        String likesText = String. valueOf(getLikedBy().size());
-        likesText += getLikedBy().size() == 1? " like" : " likes";
-        return likesText;
-    }
-    public User getUser() {
-        return (User) getParseUser(KEY_USER);
-    }
-
-    public void setUser(User user) {
-        put(KEY_USER,user);
+    public Post() {
     }
 
     public static String calculateTimeAgo(Date createdAt) {
@@ -99,5 +59,47 @@ public class Post extends ParseObject {
         }
 
         return "";
+    }
+
+    public String getDescription() {
+        return getString(KEY_DESCRIPTION);
+    }
+
+    public void setDescription(String description) {
+        put(KEY_DESCRIPTION, description);
+    }
+
+    public ParseFile getImage() {
+        return getParseFile(KEY_IMAGE);
+    }
+
+    public void setImage(ParseFile parseFile) {
+        put(KEY_IMAGE, parseFile);
+    }
+
+    public List<String> getLikedBy() {
+        List<String> likedBy = getList(KEY_LIKED_BY);
+        if (likedBy == null) {
+            likedBy = new ArrayList<>();
+        }
+        return likedBy;
+    }
+
+    public void setKeyLikedBy(List<String> abc) {
+        put(KEY_LIKED_BY, abc);
+    }
+
+    public String likeCountDisplayText() {
+        String likesText = String.valueOf(getLikedBy().size());
+        likesText += getLikedBy().size() == 1 ? " like" : " likes";
+        return likesText;
+    }
+
+    public User getUser() {
+        return (User) getParseUser(KEY_USER);
+    }
+
+    public void setUser(User user) {
+        put(KEY_USER, user);
     }
 }
