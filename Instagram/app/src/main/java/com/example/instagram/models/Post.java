@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//@Parcel
 @ParseClassName("Post")
 public class Post extends ParseObject {
     public static final String KEY_DESCRIPTION = "description";
@@ -21,7 +20,8 @@ public class Post extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_CREATED_KEY = "createdAt";
     public static final String KEY_LIKED_BY = "likedBy";
-
+    private static final String TAG = "Post";
+    
     public Post() {
     }
 
@@ -54,7 +54,7 @@ public class Post extends ParseObject {
                 return diff / DAY_MILLIS + " d";
             }
         } catch (Exception e) {
-            Log.i("Post", "getRelativeTimeAgo failed", e);
+            Log.e(TAG, "getRelativeTimeAgo failed", e);
             e.printStackTrace();
         }
 
