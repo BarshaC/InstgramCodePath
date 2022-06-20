@@ -27,6 +27,19 @@ public class ProfileFragment extends PostsFragment {
     private SwipeRefreshLayout swipeContainer;
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                queryPosts(0);
+            }
+        });
+    }
+    
+    @Override
     protected void queryPosts(int num) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
@@ -47,19 +60,6 @@ public class ProfileFragment extends PostsFragment {
                 swipeContainer.setRefreshing(false);
                 adapter.notifyDataSetChanged();
 
-            }
-        });
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                queryPosts(0);
             }
         });
     }
