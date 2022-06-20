@@ -27,14 +27,14 @@ import java.util.List;
 
 public class PostsFragment extends Fragment {
 
-    private RecyclerView rvPosts;
-    protected PostsAdapter adapter;
-    protected List <Post> allPosts;
-    private SwipeRefreshLayout swipeContainer;
     private static final String TAG = "PostsFragment";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    protected PostsAdapter adapter;
+    protected List<Post> allPosts;
     EndlessRecyclerViewScrollListener scrollListener;
+    private RecyclerView rvPosts;
+    private SwipeRefreshLayout swipeContainer;
 
     public PostsFragment() {
         // Required empty public constructor
@@ -60,7 +60,7 @@ public class PostsFragment extends Fragment {
         });
         rvPosts = view.findViewById(R.id.rvPosts);
         allPosts = new ArrayList<>();
-        adapter = new PostsAdapter(getContext(),allPosts);
+        adapter = new PostsAdapter(getContext(), allPosts);
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(linearLayoutManager);
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
@@ -75,6 +75,7 @@ public class PostsFragment extends Fragment {
 
         queryPosts(0);
     }
+
     protected void queryPosts(int skip) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);

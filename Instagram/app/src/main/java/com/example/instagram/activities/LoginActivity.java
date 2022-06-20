@@ -33,21 +33,22 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG,"onClick login Button");
+                Log.d(TAG, "onClick login Button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                loginUser(username,password);
+                loginUser(username, password);
             }
         });
     }
-    private void loginUser(String username, String password){
+
+    private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to login user " + username);
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Issue with login ",e);
-                    Toast.makeText(LoginActivity.this,"Issue with login",Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Issue with login ", e);
+                    Toast.makeText(LoginActivity.this, "Issue with login", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 goMainActivity();
@@ -55,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     private void goMainActivity() {
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);

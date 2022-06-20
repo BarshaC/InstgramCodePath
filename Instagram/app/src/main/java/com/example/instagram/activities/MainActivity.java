@@ -43,10 +43,10 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    final FragmentManager fragmentManager = getSupportFragmentManager();
+    Button btnLogout;
     private BottomNavigationView bottomNavigationView;
     private FrameLayout flContainer;
-    Button btnLogout;
-    final FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +58,17 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment = null;
                 switch (item.getItemId()) {
-                    case R.id.action_home:
-                        fragment= new PostsFragment();
+                    case R.id.actionHome:
+                        fragment = new PostsFragment();
                         break;
-                    case R.id.action_compose:
-                        fragment= new ComposeFragment();
+                    case R.id.actionCompose:
+                        fragment = new ComposeFragment();
                         break;
-                    case R.id.action_btnLogout:
+                    case R.id.actionBtnLogout:
                         fragment = new LogoutFragment();
                         break;
-                    case R.id.action_profile:
-                        fragment= new ProfileFragment();
+                    case R.id.actionProfile:
+                        fragment = new ProfileFragment();
                         break;
                     default:
                         break;

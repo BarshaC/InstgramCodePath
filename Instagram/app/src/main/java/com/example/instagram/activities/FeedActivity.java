@@ -21,11 +21,11 @@ import java.util.Date;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
-    
+
+    private final String TAG = "FeedActivity";
     protected PostsAdapter adapter;
     protected List<Post> allPosts;
     private RecyclerView rvPosts;
-    private final String TAG = "FeedActivity";
     private SwipeRefreshLayout swipeContainer;
 
     @Override
@@ -58,10 +58,10 @@ public class FeedActivity extends AppCompatActivity {
             @Override
             public void done(List<Post> posts, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Issue with getting posts",e);
+                    Log.e(TAG, "Issue with getting posts", e);
                     return;
                 }
-                for (Post post: posts)  {
+                for (Post post : posts) {
                     Log.i(TAG, "Posts: " + post.getDescription() + ", " + post.getUser().getUsername());
                 }
                 allPosts.addAll(posts);
